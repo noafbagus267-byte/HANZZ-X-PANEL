@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HANZZ X PANEL</title>
+    <style>
+        /* --- CSS DASAR --- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #000000;
+            color: #ffffff;
+            font-family: 'Courier New', Courier, monospace;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* --- HALAMAN LOGIN (INDEX 1) --- */
+        #login-page {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            height: 100vh;
+        }
+
+        .box-container {
+            width: 350px;
+            padding: 40px;
+            border: 3px solid rgb(255, 0, 0);
+            text-align: center;
+            background-color: #050505;
+            box-shadow: 0 0 15px rgba(255, 0, 0, 0.3);
+        }
+
+        .box-container h2 {
+            color: rgb(255, 0, 0);
+            margin-top: 0;
+            margin-bottom: 25px;
+            font-size: 20px;
+            letter-spacing: 2px;
+        }
+
+        .box-container input[type="text"] {
+            width: 80%;
+            padding: 10px;
+            margin-bottom: 20px;
+            background-color: #000;
+            border: 1px solid rgb(255, 0, 0);
+            color: rgb(255, 0, 0);
+            font-family: inherit;
+            outline: none;
+            text-transform: uppercase;
+            font-size: 14px;
+        }
+
+        .box-container input[type="text"]::placeholder {
+            color: rgba(255, 0, 0, 0.5);
+        }
+
+        .box-container button {
+            width: 90%;
+            padding: 10px;
+            background-color: transparent;
+            border: 1px solid rgb(255, 0, 0);
+            color: rgb(255, 0, 0);
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+            font-family: inherit;
+            font-size: 14px;
+        }
+
+        .box-container button:hover {
+            background-color: rgb(255, 0, 0);
+            color: #000;
+        }
+
+        #login-message {
+            margin-top: 20px;
+            font-weight: bold;
+            min-height: 20px;
+            font-size: 14px;
+        }
+
+        .error {
+            color: rgb(255, 0, 0);
+        }
+
+        .success {
+            color: #00ff00;
+            text-shadow: 0 0 5px #00ff00;
+        }
+
+        /* --- HALAMAN PANEL (INDEX 2) --- */
+        #panel-page {
+            display: none;
+            width: 100%;
+            max-width: 500px;
+            padding: 20px;
+        }
+
+        #panel-page h1 {
+            text-align: center;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            text-shadow: 0 0 10px #ff0000;
+            margin-bottom: 20px;
+            font-size: 24px;
+        }
+
+        .image-container {
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .main-image {
+            width: 200px;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 10px;
+            border: 3px solid #ff0000;
+            box-shadow: 0 0 15px #ff0000, 0 0 30px #ff0000 inset;
+            transition: transform 0.3s ease;
+        }
+
+        .main-image:hover {
+            transform: scale(1.05);
+        }
+
+        .menu-box {
+            background-color: #111;
+            border: 2px solid #ff0000;
+            box-shadow: 0 0 15px rgba(255, 0, 0, 0.5);
+            border-radius: 10px;
+            padding: 20px;
+            width: 100%;
+        }
+
+        .menu-header {
+            text-align: center;
+            color: #ff0000;
+            margin-bottom: 15px;
+            font-weight: bold;
+            text-transform: uppercase;
+            border-bottom: 1px solid #ff0000;
+            padding-bottom: 10px;
+            font-size: 16px;
+        }
+
+        .menu-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0;
+            border-bottom: 1px solid #333;
+        }
+
+        .menu-item:last-child {
+            border-bottom: none;
+        }
+
+        .menu-label {
+            font-size: 14px;
+            letter-spacing: 1px;
+        }
+
+        .switch {
+            position: relative;
+            display: inline-block;
+            width: 50px;
+            height: 24px;
+        }
+
+        .switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #333;
+            transition: .4s;
+            border-radius: 34px;
+            border: 1px solid #555;
+        }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 16px;
+            width: 16px;
+            left: 4px;
+            bottom: 3px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+
+        input:checked + .slider {
+            background-color: #ff0000;
+            box-shadow: 0 0 10px #ff0000;
+        }
+
+        input:checked + .slider:before {
+            transform: translateX(26px);
+        }
+
+        #success-message {
+            margin-top: 30px;
+            font-size: 2rem;
+            font-weight: bold;
+            color: #ff0000;
+            text-shadow: 0 0 20px #ff0000;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            pointer-events: none;
+            text-align: center;
+        }
+
+        #success-message.visible {
+            opacity: 1;
+            animation: blink 1s infinite;
+        }
+
+        @keyframes blink {
+            0% { opacity: 1; }
+            50% { opacity: 0.5; }
+            100% { opacity: 1; }
+        }
+
+        /* --- RESPONSIVE --- */
+        @media (max-width: 480px) {
+            .box-container {
+                width: 90%;
+                padding: 30px 20px;
+            }
+            
+            #panel-page {
+                padding: 15px;
+            }
+            
+            .main-image {
+                width: 150px;
+                height: 150px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- HALAMAN LOGIN (INDEX 1) -->
+    <div id="login-page">
+        <div class="box-container">
+            <h2>ENTER KEY TO CONTINUE</h2>
+            
+            <input type="text" id="keyInput" placeholder="MASUKAN KEY DISINI">
+            
+            <button onclick="checkKey()">ACCESS</button>
+            
+            <div id="login-message"></div>
+        </div>
+    </div>
+
+    <!-- HALAMAN PANEL (INDEX 2) -->
+    <div id="panel-page">
+        <h1>HANZZ X PANEL</h1>
+
+        <div class="image-container">
+            <img src="foto.png" alt="Logo" class="main-image">
+        </div>
+
+        <div class="menu-box">
+            <div class="menu-header">Menu Config</div>
+
+            <!-- Daftar Menu -->
+            <div class="menu-item">
+                <span class="menu-label">Byapass</span>
+                <label class="switch">
+                    <input type="checkbox" onchange="toggleFeature(this)">
+                    <span class="slider"></span>
+                </label>
+            </div>
+
+            <div class="menu-item">
+                <span class="menu-label">Anti Band</span>
+                <label class="switch">
+                    <input type="checkbox" onchange="toggleFeature(this)">
+                    <span class="slider"></span>
+                </label>
+            </div>
+
+            <div class="menu-item">
+                <span class="menu-label">Anti Blacklist</span>
+                <label class="switch">
+                    <input type="checkbox" onchange="toggleFeature(this)">
+                    <span class="slider"></span>
+                </label>
+            </div>
+
+            <div class="menu-item">
+                <span class="menu-label">No Detect</span>
+                <label class="switch">
+                    <input type="checkbox" onchange="toggleFeature(this)">
+                    <span class="slider"></span>
+                </label>
+            </div>
+
+            <div class="menu-item">
+                <span class="menu-label">Rege 50%</span>
+                <label class="switch">
+                    <input type="checkbox" onchange="toggleFeature(this)">
+                    <span class="slider"></span>
+                </label>
+            </div>
+
+            <div class="menu-item">
+                <span class="menu-label">Rege 90%</span>
+                <label class="switch">
+                    <input type="checkbox" onchange="toggleFeature(this)">
+                    <span class="slider"></span>
+                </label>
+            </div>
+
+            <div class="menu-item">
+                <span class="menu-label">Aimbot 50%</span>
+                <label class="switch">
+                    <input type="checkbox" onchange="toggleFeature(this)">
+                    <span class="slider"></span>
+                </label>
+            </div>
+
+            <div class="menu-item">
+                <span class="menu-label">Aimbot 90%</span>
+                <label class="switch">
+                    <input type="checkbox" onchange="toggleFeature(this)">
+                    <span class="slider"></span>
+                </label>
+            </div>
+
+            <div class="menu-item">
+                <span class="menu-label">ESP Player</span>
+                <label class="switch">
+                    <input type="checkbox" onchange="toggleFeature(this)">
+                    <span class="slider"></span>
+                </label>
+            </div>
+
+            <div class="menu-item">
+                <span class="menu-label">Magic Bullet 100%</span>
+                <label class="switch">
+                    <input type="checkbox" onchange="toggleFeature(this)">
+                    <span class="slider"></span>
+                </label>
+            </div>
+
+            <div class="menu-item">
+                <span class="menu-label">Aim Lock Head 50%</span>
+                <label class="switch">
+                    <input type="checkbox" onchange="toggleFeature(this)">
+                    <span class="slider"></span>
+                </label>
+            </div>
+
+            <div class="menu-item">
+                <span class="menu-label">Aim Lock Head 100%</span>
+                <label class="switch">
+                    <input type="checkbox" onchange="toggleFeature(this)">
+                    <span class="slider"></span>
+                </label>
+            </div>
+
+            <div class="menu-item">
+                <span class="menu-label">Aim Lock Body 50%</span>
+                <label class="switch">
+                    <input type="checkbox" onchange="toggleFeature(this)">
+                    <span class="slider"></span>
+                </label>
+            </div>
+
+            <div class="menu-item">
+                <span class="menu-label">Aim Lock Body 100%</span>
+                <label class="switch">
+                    <input type="checkbox" onchange="toggleFeature(this)">
+                    <span class="slider"></span>
+                </label>
+            </div>
+
+            <div class="menu-item">
+                <span class="menu-label">No Recoil</span>
+                <label class="switch">
+                    <input type="checkbox" onchange="toggleFeature(this)">
+                    <span class="slider"></span>
+                </label>
+            </div>
+
+            <div class="menu-item">
+                <span class="menu-label">No Reload</span>
+                <label class="switch">
+                    <input type="checkbox" onchange="toggleFeature(this)">
+                    <span class="slider"></span>
+                </label>
+            </div>
+
+            <div class="menu-item">
+                <span class="menu-label">Glowall Back</span>
+                <label class="switch">
+                    <input type="checkbox" onchange="toggleFeature(this)">
+                    <span class="slider"></span>
+                </label>
+            </div>
+
+            <div class="menu-item">
+                <span class="menu-label">Back Jump</span>
+                <label class="switch">
+                    <input type="checkbox" onchange="toggleFeature(this)">
+                    <span class="slider"></span>
+                </label>
+            </div>
+        </div>
+
+        <!-- Pesan Sukses -->
+        <div id="success-message">SUCCESS☠️</div>
+    </div>
+
+    <script>
+        // Fungsi untuk memeriksa key
+        function checkKey() {
+            var inputKey = document.getElementById('keyInput').value;
+            var loginMessage = document.getElementById('login-message');
+            var loginPage = document.getElementById('login-page');
+            var panelPage = document.getElementById('panel-page');
+
+            // Cek apakah key sama dengan "QPALZM"
+            if (inputKey === "QPALZM") {
+                // Tampilkan pesan sukses di halaman login
+                loginMessage.innerText = "LET'S GO";
+                loginMessage.className = "success";
+
+                // Tunda sebentar sebelum pindah ke panel
+                setTimeout(function() {
+                    // Sembunyikan halaman login
+                    loginPage.style.display = 'none';
+                    // Tampilkan halaman panel
+                    panelPage.style.display = 'block';
+                }, 500);
+                
+            } else {
+                // Tampilkan pesan error
+                loginMessage.innerText = "KEY ERROR";
+                loginMessage.className = "error";
+                
+                // Hapus teks di input agar user bisa coba lagi
+                document.getElementById('keyInput').value = "";
+            }
+        }
+
+        // Fitur tambahan: Tekan Enter untuk submit
+        document.getElementById("keyInput").addEventListener("keypress", function(event) {
+            if (event.key === "Enter") {
+                checkKey();
+            }
+        });
+
+        // Fungsi untuk toggle fitur di panel
+        function toggleFeature(checkbox) {
+            const message = document.getElementById('success-message');
+            
+            if (checkbox.checked) {
+                // Jika switch dinyalakan
+                message.classList.add('visible');
+            } else {
+                // Jika dimatikan, cek apakah ada switch lain yang masih aktif
+                const anyChecked = document.querySelectorAll('input[type="checkbox"]:checked').length;
+                if (anyChecked === 0) {
+                    message.classList.remove('visible');
+                }
+            }
+        }
+    </script>
+
+</body>
+</html>
